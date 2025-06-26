@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "77895331511",
+    "project_id": "fit-flow-7f318",
+    "storage_bucket": "fit-flow-7f318.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77895331511:android:7de9ee6f4c626949106732",
+        "android_client_info": {
+          "package_name": "com.example.fit_flow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1DrEL7OiNxGrJrdNkgZ5RoaAV5n5WQzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
