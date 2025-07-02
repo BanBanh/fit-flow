@@ -1,3 +1,4 @@
+import 'package:fit_flow/data/notifier.dart';
 import 'package:fit_flow/screens/page/detail_page.dart';
 import 'package:fit_flow/screens/page/history_page.dart';
 import 'package:fit_flow/screens/page/index_page.dart';
@@ -16,39 +17,49 @@ class PageTurner extends StatelessWidget {
 
     final double pageWidth = screenWidth - 24 - 24;
     final double pageHeight = screenHeight - 24 - 48 - 24 - 72 - 24;
-
-    final ScrollController verticalController = ScrollController(
-      initialScrollOffset: pageHeight + 24,
-    );
-    final ScrollController horizontalController = ScrollController();
     return SizedBox(
       width: screenWidth,
       height: pageHeight,
-      child: SingleChildScrollView(
-        controller: verticalController,
-        child: Column(
-          children: [
-            DetailPage(),
-            SizedBox(height: 24),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              controller: horizontalController,
-              child: Row(
-                children: [
-                  IndexPage(),
-                  SizedBox(width: 24),
-                  SearchPage(),
-                  SizedBox(width: 24),
-                  WorkOutPage(),
-                  SizedBox(width: 24),
-                  HistoryPage(),
-                  SizedBox(width: 24),
-                  SettingPage(),
-                ],
-              ),
+      child: ValueListenableBuilder(
+        valueListenable: verticalControllerNotifier,
+        builder: (context, verticalController, child) {
+          return SingleChildScrollView(
+            controller: verticalController,
+            physics: NeverScrollableScrollPhysics(),
+            reverse: true,
+            child: Column(
+              children: [
+                DetailPage(),
+                SizedBox(height: 24),
+                ValueListenableBuilder(
+                  valueListenable: horizontalControllerNotifier,
+                  builder: (context, horizontalController, child) {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      controller: horizontalController,
+                      physics: NeverScrollableScrollPhysics(),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 24),
+                          IndexPage(),
+                          SizedBox(width: 24),
+                          SearchPage(),
+                          SizedBox(width: 24),
+                          WorkOutPage(),
+                          SizedBox(width: 24),
+                          HistoryPage(),
+                          SizedBox(width: 24),
+                          SettingPage(),
+                          SizedBox(width: 24),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

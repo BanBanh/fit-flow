@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fit_flow/data/notifier.dart';
+import 'package:flutter/material.dart';
 
 void handleTopBarTitle(String targetText) {
   if (topBarTitleNotifier.value == targetText) {
@@ -35,4 +36,12 @@ void handleTopBarTitle(String targetText) {
       timer = null;
     }
   });
+}
+
+void handleHorizontalPageController(int selected, double screenWidth) {
+  horizontalControllerNotifier.value.animateTo(
+    (screenWidth - 24) * selected,
+    duration: Duration(milliseconds: 250),
+    curve: Curves.easeInOut,
+  );
 }

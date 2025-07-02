@@ -62,14 +62,6 @@ class _MainScreenState extends State<MainScreen> {
             // top bar
             TopBar(),
             // main body
-            // Container(
-            //   height: screenHeight - 24 - 48 - 24 - 72 - 24,
-            //   decoration: BoxDecoration(
-            //     color: MyDecor(isDarkMode).bg,
-            //     borderRadius: BorderRadius.circular(24),
-            //   ),
-            //   child: PageTurner(),
-            // ),
             PageTurner(),
             SizedBox(height: 24),
             // bottom nav
