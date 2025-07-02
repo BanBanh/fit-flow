@@ -89,8 +89,9 @@ class _BottomNavState extends State<BottomNav> {
                                   navIndicatorPosNotifier.value =
                                       (bTNSpace + 18 - 24) +
                                       (bTNSpace + 36) * item.$1;
-                                  handleTopBarTitle(titleList[item.$1]);
                                 });
+                                navSelected = item.$1;
+                                handleTopBarTitle(titleList[item.$1]);
                               },
                               child: SizedBox.square(
                                 dimension: 36,

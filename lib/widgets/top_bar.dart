@@ -20,9 +20,14 @@ class TopBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               SizedBox(),
-              Text(
-                topBarTitle,
-                style: TextStyle(color: MyDecor(isDarkMode).text, fontSize: 36),
+              FittedBox(
+                child: Text(
+                  topBarTitle,
+                  style: TextStyle(
+                    color: MyDecor(isDarkMode).text,
+                    fontSize: 36,
+                  ),
+                ),
               ),
               SizedBox(),
             ],

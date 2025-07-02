@@ -1,5 +1,6 @@
 import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/my_decor.dart';
+import 'package:fit_flow/screens/page_turner.dart';
 import 'package:fit_flow/widgets/bottom_nav.dart';
 import 'package:fit_flow/widgets/top_bar.dart';
 import 'package:flutter/material.dart';
@@ -55,28 +56,22 @@ class _MainScreenState extends State<MainScreen> {
         width: screenWidth,
         height: screenHeight,
         color: MyDecor(isDarkMode).bgDark,
-        padding: EdgeInsets.all(24),
+        padding: EdgeInsets.symmetric(vertical: 24),
         child: Column(
           children: [
             // top bar
             TopBar(),
             // main body
-            Padding(
-              padding: const EdgeInsets.only(bottom: 24.0),
-              child: Container(
-                height: screenHeight - 48 - 72 * 2,
-                decoration: BoxDecoration(
-                  color: MyDecor(isDarkMode).bg,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Center(
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            // Container(
+            //   height: screenHeight - 24 - 48 - 24 - 72 - 24,
+            //   decoration: BoxDecoration(
+            //     color: MyDecor(isDarkMode).bg,
+            //     borderRadius: BorderRadius.circular(24),
+            //   ),
+            //   child: PageTurner(),
+            // ),
+            PageTurner(),
+            SizedBox(height: 24),
             // bottom nav
             BottomNav(),
           ],

@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:fit_flow/data/notifier.dart';
 
 void handleTopBarTitle(String targetText) {
+  if (topBarTitleNotifier.value == targetText) {
+    return;
+  }
   List<String> sequence = [];
   int step = 0;
   Timer? timer;
@@ -23,7 +26,7 @@ void handleTopBarTitle(String targetText) {
   step = 0;
 
   // Start timer
-  timer = Timer.periodic(Duration(milliseconds: 75), (timer1) {
+  timer = Timer.periodic(Duration(milliseconds: 25), (timer1) {
     if (step < sequence.length) {
       topBarTitleNotifier.value = sequence[step];
       step++;
