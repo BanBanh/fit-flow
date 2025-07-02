@@ -1,9 +1,18 @@
+import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/my_decor.dart';
+import 'package:fit_flow/data/notifier.dart';
+import 'package:fit_flow/logic/logic.dart';
+import 'package:fit_flow/widgets/custom_list_item.dart';
 import 'package:flutter/material.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
 
+  @override
+  State<SettingPage> createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = context.themeMode;
@@ -21,7 +30,30 @@ class SettingPage extends StatelessWidget {
         color: MyDecor(isDarkMode).bg,
         borderRadius: BorderRadius.circular(24),
       ),
-      child: Center(child: Text('SettingPage')),
+      padding: EdgeInsets.all(24),
+      child: Column(
+        spacing: 24,
+        children: [
+          CListItem(
+            imgPath: 'assets/images/settings/1.png',
+            title: 'Theme Mode',
+            widgets: [
+              GestureDetector(
+                onTap: () => handleThemeChange('dark'),
+                child: CListItemItem(text: 'dark', color: 'dark'),
+              ),
+              GestureDetector(
+                onTap: () => handleThemeChange('light'),
+                child: CListItemItem(text: 'light', color: 'light'),
+              ),
+              GestureDetector(
+                onTap: () => handleThemeChange('system'),
+                child: CListItemItem(text: 'system', color: 'system'),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

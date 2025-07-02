@@ -21,12 +21,11 @@ class MyDecor {
   Color get text => isDarkMode ? Color(0xFFE0E0E0) : Color(0xFF1F1F1F);
   Color get textMuted => isDarkMode ? Color(0xFFC2C2C2) : Color(0xFF3D3D3D);
 
-  Color get bgDark => isDarkMode ? Color(0xFF1E1E1E) : Color(0xFFE0E0E0);
-  Color get bg => isDarkMode ? Color(0xFF3C3C3C) : Color(0xFFC2C2C2);
-  Color get bgLight => isDarkMode ? Color(0xFF5C5C5C) : Color(0xFFA3A3A3);
-  Color get highlight => isDarkMode ? Color(0xFF7A7A7A) : Color(0xFF858585);
-  Color get border => isDarkMode ? Color(0xFF5C5C5C) : Color(0xFFB3B3B3);
-  Color get borderMuted => isDarkMode ? Color(0xFF6B6B6B) : Color(0xFF949494);
+  Color get bgDark => isDarkMode ? Color(0xFF1E1E1E) : Color(0xFFB3B3B3);
+  Color get bg => isDarkMode ? Color(0xFF3C3C3C) : Color(0xFFD1D1D1);
+  Color get bgLight => isDarkMode ? Color(0xFF5C5C5C) : Color(0xFFF0F0F0);
+  Color get border => isDarkMode ? Color(0xFF7A7A7A) : Color(0xFF858585);
+  Color get borderMuted => isDarkMode ? Color(0xFF999999) : Color(0xFF666666);
 
   Color get danger => Color(0xFFE05F5F);
   Color get warning => Color(0xFFE0C45F);

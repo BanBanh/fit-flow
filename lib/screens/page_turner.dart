@@ -14,8 +14,6 @@ class PageTurner extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-
-    final double pageWidth = screenWidth - 24 - 24;
     final double pageHeight = screenHeight - 24 - 48 - 24 - 72 - 24;
     return SizedBox(
       width: screenWidth,

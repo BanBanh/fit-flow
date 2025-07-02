@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/notifier.dart';
 import 'package:flutter/material.dart';
 
@@ -44,4 +45,20 @@ void handleHorizontalPageController(int selected, double screenWidth) {
     duration: Duration(milliseconds: 250),
     curve: Curves.easeInOut,
   );
+}
+
+void handleThemeChange(String color) {
+  switch (color) {
+    case 'dark':
+      UserPreferences.themeMode = 'dark';
+      refreshNotifier.value = !refreshNotifier.value;
+
+    case 'light':
+      UserPreferences.themeMode = 'light';
+      refreshNotifier.value = !refreshNotifier.value;
+
+    case 'system':
+      UserPreferences.themeMode = 'system';
+      refreshNotifier.value = !refreshNotifier.value;
+  }
 }
