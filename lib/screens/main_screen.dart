@@ -1,5 +1,6 @@
 import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/my_decor.dart';
+import 'package:fit_flow/data/notifier.dart';
 import 'package:fit_flow/screens/page_turner.dart';
 import 'package:fit_flow/widgets/bottom_nav.dart';
 import 'package:fit_flow/widgets/top_bar.dart';
@@ -52,22 +53,40 @@ class _MainScreenState extends State<MainScreen> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Container(
-        width: screenWidth,
-        height: screenHeight,
-        color: MyDecor(isDarkMode).bgDark,
-        padding: EdgeInsets.symmetric(vertical: 24),
-        child: Column(
-          children: [
-            // top bar
-            TopBar(),
-            // main body
-            PageTurner(),
-            SizedBox(height: 24),
-            // bottom nav
-            BottomNav(),
-          ],
-        ),
+      body: Stack(
+        children: [
+          Container(
+            width: screenWidth,
+            height: screenHeight,
+            color: MyDecor(isDarkMode).bgDark,
+            padding: EdgeInsets.symmetric(vertical: 24),
+            child: Column(
+              children: [
+                // top bar
+                TopBar(),
+                // main body
+                PageTurner(),
+                SizedBox(height: 24),
+                // bottom nav
+                BottomNav(),
+              ],
+            ),
+          ),
+          IgnorePointer(
+            child: ValueListenableBuilder(
+              valueListenable: screenCertainColorNotifier,
+              builder: (context, screenCertainColor, child) {
+                return AnimatedContainer(
+                  width: screenWidth,
+                  height: screenHeight,
+                  color: screenCertainColor,
+                  duration: Duration(milliseconds: 250),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

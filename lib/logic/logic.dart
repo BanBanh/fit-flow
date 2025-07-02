@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fit_flow/data/model/user_preferences.dart';
+import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/data/notifier.dart';
 import 'package:flutter/material.dart';
 
@@ -47,18 +48,39 @@ void handleHorizontalPageController(int selected, double screenWidth) {
   );
 }
 
-void handleThemeChange(String color) {
+void handleThemeChange(String color, BuildContext context) {
+  Timer? timer;
   switch (color) {
     case 'dark':
-      UserPreferences.themeMode = 'dark';
-      refreshNotifier.value = !refreshNotifier.value;
+      if (UserPreferences.themeMode != 'dark') {
+        screenCertainColorNotifier.value = MyDecor(true).bg;
+        timer = Timer(Duration(milliseconds: 750), () {
+          UserPreferences.themeMode = 'dark';
+          refreshNotifier.value = !refreshNotifier.value;
+          screenCertainColorNotifier.value = Colors.transparent;
+        });
+      }
 
     case 'light':
-      UserPreferences.themeMode = 'light';
-      refreshNotifier.value = !refreshNotifier.value;
+      if (UserPreferences.themeMode != 'light') {
+        screenCertainColorNotifier.value = MyDecor(false).bg;
+        timer = Timer(Duration(milliseconds: 750), () {
+          UserPreferences.themeMode = 'light';
+          refreshNotifier.value = !refreshNotifier.value;
+          screenCertainColorNotifier.value = Colors.transparent;
+        });
+      }
 
     case 'system':
-      UserPreferences.themeMode = 'system';
-      refreshNotifier.value = !refreshNotifier.value;
+      if (UserPreferences.themeMode != 'system') {
+        screenCertainColorNotifier.value = MyDecor(
+          MediaQuery.of(context).platformBrightness == Brightness.dark,
+        ).bg;
+        timer = Timer(Duration(milliseconds: 750), () {
+          UserPreferences.themeMode = 'system';
+          refreshNotifier.value = !refreshNotifier.value;
+          screenCertainColorNotifier.value = Colors.transparent;
+        });
+      }
   }
 }

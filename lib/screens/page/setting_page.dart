@@ -39,15 +39,15 @@ class _SettingPageState extends State<SettingPage> {
             title: 'Theme Mode',
             widgets: [
               GestureDetector(
-                onTap: () => handleThemeChange('dark'),
+                onTap: () => handleThemeChange('dark', context),
                 child: CListItemItem(text: 'dark', color: 'dark'),
               ),
               GestureDetector(
-                onTap: () => handleThemeChange('light'),
+                onTap: () => handleThemeChange('light', context),
                 child: CListItemItem(text: 'light', color: 'light'),
               ),
               GestureDetector(
-                onTap: () => handleThemeChange('system'),
+                onTap: () => handleThemeChange('system', context),
                 child: CListItemItem(text: 'system', color: 'system'),
               ),
             ],
