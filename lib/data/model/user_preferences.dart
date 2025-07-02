@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 class UserPreferences {
   static const _themeModeKey = 'themeMode';
   static const _primaryColorKey = 'primaryColor';
+  static const _secondaryColorKey = 'secondaryColor';
   static const _darkModeKey = 'darkMode';
 
   static Box get _box => Hive.box('userPrefs');
@@ -24,6 +25,16 @@ class UserPreferences {
   }
 
   static set primaryColor(String color) {
+    _box.put(_primaryColorKey, color);
+  }
+
+  // Secondary Color (stored as int value)
+  static String get secondaryColor {
+    String colorValue = _box.get(_secondaryColorKey, defaultValue: 'orange');
+    return colorValue;
+  }
+
+  static set secondaryColor(String color) {
     _box.put(_primaryColorKey, color);
   }
 

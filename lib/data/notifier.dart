@@ -1,3 +1,4 @@
 import 'package:flutter/material.dart';
 
-ValueNotifier<bool> example = ValueNotifier(true);
+ValueNotifier<double> navIndicatorPosNotifier = ValueNotifier(0);
+ValueNotifier<String> topBarTitleNotifier = ValueNotifier('Index');
