@@ -1,6 +1,4 @@
-import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/my_decor.dart';
-import 'package:fit_flow/data/notifier.dart';
 import 'package:fit_flow/logic/logic.dart';
 import 'package:fit_flow/widgets/custom_list_item.dart';
 import 'package:flutter/material.dart';
@@ -40,17 +38,49 @@ class _SettingPageState extends State<SettingPage> {
             widgets: [
               GestureDetector(
                 onTap: () => handleThemeChange('dark', context),
-                child: CListItemItem(text: 'dark', color: 'dark'),
+                child: CListItemItem(
+                  text: 'dark',
+                  bgColor: 'dark',
+                  borderColor: 'dark',
+                  textColor: 'dark',
+                ),
               ),
               GestureDetector(
                 onTap: () => handleThemeChange('light', context),
-                child: CListItemItem(text: 'light', color: 'light'),
+                child: CListItemItem(
+                  text: 'light',
+                  bgColor: 'light',
+                  borderColor: 'light',
+                  textColor: 'light',
+                ),
               ),
               GestureDetector(
                 onTap: () => handleThemeChange('system', context),
-                child: CListItemItem(text: 'system', color: 'system'),
+                child: CListItemItem(
+                  text: 'system',
+                  bgColor: 'system',
+                  borderColor: 'system',
+                  textColor: 'system',
+                ),
               ),
             ],
+          ),
+          CListItem(
+            imgPath: 'assets/images/settings/1.png',
+            title: 'Theme Color',
+            widgets: ['blue', 'purple', 'red', 'orange', 'yellow', 'green']
+                .map(
+                  (e) => GestureDetector(
+                    onTap: () => handleThemeChange(e, context),
+                    child: CListItemItem(
+                      text: e,
+                      textColor: 'light',
+                      borderColor: 'light',
+                      bgColor: e,
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),

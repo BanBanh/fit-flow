@@ -10,9 +10,11 @@ class CListItem extends StatelessWidget {
     this.imgPath = '',
     this.title = '',
     this.widgets,
+    this.imgColor,
   });
 
   final String imgPath;
+  final Color? imgColor;
   final String title;
   final List<Widget>? widgets;
   @override
@@ -71,7 +73,7 @@ class CListItem extends StatelessWidget {
                 child: Image.asset(
                   imgPath,
                   fit: BoxFit.contain,
-                  color: MyDecor(isDarkMode).text,
+                  color: imgColor ?? MyDecor(isDarkMode).text,
                   errorBuilder: (context, error, stackTrace) {
                     return Center(
                       child: Text(
@@ -117,8 +119,16 @@ class CListItem extends StatelessWidget {
 }
 
 class CListItemItem extends StatelessWidget {
-  const CListItemItem({super.key, this.color = '', this.text = ''});
-  final String color;
+  const CListItemItem({
+    super.key,
+    this.bgColor = '',
+    this.textColor = '',
+    this.borderColor = '',
+    this.text = '',
+  });
+  final String bgColor;
+  final String textColor;
+  final String borderColor;
   final String text;
   @override
   Widget build(BuildContext context) {
@@ -126,26 +136,49 @@ class CListItemItem extends StatelessWidget {
     Color bgC = MyDecor(isDarkMode).bg;
     Color borderC = MyDecor(isDarkMode).border;
     Color textC = MyDecor(isDarkMode).text;
-    switch (color) {
+    switch (textColor) {
       case 'dark':
         {
-          bgC = MyDecor(true).bg;
-          borderC = MyDecor(true).border;
           textC = MyDecor(true).text;
         }
       case 'light':
         {
-          bgC = MyDecor(false).bg;
-          borderC = MyDecor(false).border;
           textC = MyDecor(false).text;
         }
       case 'system':
         {
           final bool platformBrightness =
               MediaQuery.of(context).platformBrightness == Brightness.dark;
-          bgC = MyDecor(platformBrightness).bg;
-          borderC = MyDecor(platformBrightness).border;
           textC = MyDecor(platformBrightness).text;
+        }
+      case 'blue':
+        textC = MyDecor(isDarkMode).blue;
+      case 'purple':
+        textC = MyDecor(isDarkMode).purple;
+      case 'red':
+        textC = MyDecor(isDarkMode).red;
+      case 'orange':
+        textC = MyDecor(isDarkMode).orange;
+      case 'yellow':
+        textC = MyDecor(isDarkMode).yellow;
+      case 'green':
+        textC = MyDecor(isDarkMode).green;
+      default:
+    }
+    switch (bgColor) {
+      case 'dark':
+        {
+          bgC = MyDecor(true).bg;
+        }
+      case 'light':
+        {
+          bgC = MyDecor(false).bg;
+        }
+      case 'system':
+        {
+          final bool platformBrightness =
+              MediaQuery.of(context).platformBrightness == Brightness.dark;
+          bgC = MyDecor(platformBrightness).bg;
         }
       case 'blue':
         bgC = MyDecor(isDarkMode).blue;
@@ -161,6 +194,36 @@ class CListItemItem extends StatelessWidget {
         bgC = MyDecor(isDarkMode).green;
       default:
     }
+    switch (borderColor) {
+      case 'dark':
+        {
+          borderC = MyDecor(true).border;
+        }
+      case 'light':
+        {
+          borderC = MyDecor(false).border;
+        }
+      case 'system':
+        {
+          final bool platformBrightness =
+              MediaQuery.of(context).platformBrightness == Brightness.dark;
+          borderC = MyDecor(platformBrightness).border;
+        }
+      case 'blue':
+        borderC = MyDecor(isDarkMode).blue;
+      case 'purple':
+        borderC = MyDecor(isDarkMode).purple;
+      case 'red':
+        borderC = MyDecor(isDarkMode).red;
+      case 'orange':
+        borderC = MyDecor(isDarkMode).orange;
+      case 'yellow':
+        borderC = MyDecor(isDarkMode).yellow;
+      case 'green':
+        borderC = MyDecor(isDarkMode).green;
+      default:
+    }
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(

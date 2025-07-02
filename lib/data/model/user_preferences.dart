@@ -43,10 +43,6 @@ class UserPreferences {
     return _box.get(_darkModeKey, defaultValue: false);
   }
 
-  static set darkMode(bool value) {
-    _box.put(_darkModeKey, value);
-  }
-
   // Clear all preferences
   static void clear() {
     _box.clear();
