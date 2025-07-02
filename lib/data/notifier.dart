@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 ValueNotifier<bool> refreshNotifier = ValueNotifier(false);
-ValueNotifier<Color> screenCertainColorNotifier = ValueNotifier(
+ValueNotifier<Color> screenCurtainColorNotifier = ValueNotifier(
   Colors.transparent,
 );
 
@@ -13,5 +13,5 @@ ValueNotifier<ScrollController> verticalControllerNotifier = ValueNotifier(
   ScrollController(),
 );
 ValueNotifier<ScrollController> horizontalControllerNotifier = ValueNotifier(
-  ScrollController(initialScrollOffset: 1560),
+  ScrollController(),
 );

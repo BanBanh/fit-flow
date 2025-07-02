@@ -50,90 +50,94 @@ void handleHorizontalPageController(int selected, double screenWidth) {
 
 void handleThemeChange(String color, BuildContext context) {
   Timer? timer;
+  // TiMer iS noT uSed. Shut up, bro
+  timer = Timer(Duration(milliseconds: 1), () {});
+  timer.cancel();
+
   switch (color) {
     case 'dark':
       if (UserPreferences.themeMode != 'dark') {
-        screenCertainColorNotifier.value = MyDecor(true).bg;
+        screenCurtainColorNotifier.value = MyDecor(true).bg;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.themeMode = 'dark';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
 
     case 'light':
       if (UserPreferences.themeMode != 'light') {
-        screenCertainColorNotifier.value = MyDecor(false).bg;
+        screenCurtainColorNotifier.value = MyDecor(false).bg;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.themeMode = 'light';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
 
     case 'system':
       if (UserPreferences.themeMode != 'system') {
-        screenCertainColorNotifier.value = MyDecor(
+        screenCurtainColorNotifier.value = MyDecor(
           MediaQuery.of(context).platformBrightness == Brightness.dark,
         ).bg;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.themeMode = 'system';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
     case 'blue':
       if (UserPreferences.primaryColor != 'blue') {
-        screenCertainColorNotifier.value = MyDecor(false).blue;
+        screenCurtainColorNotifier.value = MyDecor(false).blue;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.primaryColor = 'blue';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
     case 'purple':
       if (UserPreferences.primaryColor != 'purple') {
-        screenCertainColorNotifier.value = MyDecor(false).purple;
+        screenCurtainColorNotifier.value = MyDecor(false).purple;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.primaryColor = 'purple';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
     case 'red':
       if (UserPreferences.primaryColor != 'red') {
-        screenCertainColorNotifier.value = MyDecor(false).red;
+        screenCurtainColorNotifier.value = MyDecor(false).red;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.primaryColor = 'red';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
     case 'orange':
       if (UserPreferences.primaryColor != 'orange') {
-        screenCertainColorNotifier.value = MyDecor(false).orange;
+        screenCurtainColorNotifier.value = MyDecor(false).orange;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.primaryColor = 'orange';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
     case 'yellow':
       if (UserPreferences.primaryColor != 'yellow') {
-        screenCertainColorNotifier.value = MyDecor(false).yellow;
+        screenCurtainColorNotifier.value = MyDecor(false).yellow;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.primaryColor = 'yellow';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
     case 'green':
       if (UserPreferences.primaryColor != 'green') {
-        screenCertainColorNotifier.value = MyDecor(false).green;
+        screenCurtainColorNotifier.value = MyDecor(false).green;
         timer = Timer(Duration(milliseconds: 750), () {
           UserPreferences.primaryColor = 'green';
           refreshNotifier.value = !refreshNotifier.value;
-          screenCertainColorNotifier.value = Colors.transparent;
+          screenCurtainColorNotifier.value = Colors.transparent;
         });
       }
   }

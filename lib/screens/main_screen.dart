@@ -18,37 +18,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final bool isDarkMode = context.themeMode;
 
-    Color primaryColor = MyDecor(isDarkMode).blue;
-    switch (UserPreferences.primaryColor) {
-      case 'blue':
-        primaryColor = MyDecor(isDarkMode).blue;
-      case 'purple':
-        primaryColor = MyDecor(isDarkMode).purple;
-      case 'red':
-        primaryColor = MyDecor(isDarkMode).red;
-      case 'orange':
-        primaryColor = MyDecor(isDarkMode).orange;
-      case 'yellow':
-        primaryColor = MyDecor(isDarkMode).yellow;
-      case 'green':
-        primaryColor = MyDecor(isDarkMode).green;
-    }
-    Color secondaryColor = MyDecor(isDarkMode).orange;
-    switch (UserPreferences.secondaryColor) {
-      case 'blue':
-        secondaryColor = MyDecor(isDarkMode).blue;
-      case 'purple':
-        secondaryColor = MyDecor(isDarkMode).purple;
-      case 'red':
-        secondaryColor = MyDecor(isDarkMode).red;
-      case 'orange':
-        secondaryColor = MyDecor(isDarkMode).orange;
-      case 'yellow':
-        secondaryColor = MyDecor(isDarkMode).yellow;
-      case 'green':
-        secondaryColor = MyDecor(isDarkMode).green;
-    }
-
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
@@ -74,12 +43,12 @@ class _MainScreenState extends State<MainScreen> {
           ),
           IgnorePointer(
             child: ValueListenableBuilder(
-              valueListenable: screenCertainColorNotifier,
-              builder: (context, screenCertainColor, child) {
+              valueListenable: screenCurtainColorNotifier,
+              builder: (context, screenCurtainColor, child) {
                 return AnimatedContainer(
                   width: screenWidth,
                   height: screenHeight,
-                  color: screenCertainColor,
+                  color: screenCurtainColor,
                   duration: Duration(milliseconds: 250),
                   curve: Curves.easeInOut,
                 );
