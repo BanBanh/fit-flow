@@ -61,7 +61,7 @@ class _BottomNavState extends State<BottomNav> {
                 top: 12,
                 left: navIndicatorPos,
                 duration: Duration(milliseconds: 250),
-                curve: Curves.easeInOut,
+                curve: Curves.easeOut,
                 child: Container(
                   width: 48,
                   height: 48,
@@ -84,17 +84,17 @@ class _BottomNavState extends State<BottomNav> {
                           ].indexed
                           .map(
                             (item) => GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 setState(() {
                                   navIndicatorPosNotifier.value =
                                       (bTNSpace + 18 - 24) +
                                       (bTNSpace + 36) * item.$1;
                                 });
-                                handleHorizontalPageController(
+                                await handleBottomHorizontalPageController(
                                   item.$1,
                                   screenWidth,
                                 );
-                                handleTopBarTitle(titleList[item.$1]);
+                                await handleTopBarTitle(titleList[item.$1]);
                               },
                               child: SizedBox.square(
                                 dimension: 36,

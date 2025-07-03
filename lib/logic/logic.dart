@@ -5,7 +5,7 @@ import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/data/notifier.dart';
 import 'package:flutter/material.dart';
 
-void handleTopBarTitle(String targetText) {
+Future<void> handleTopBarTitle(String targetText) async {
   if (topBarTitleNotifier.value == targetText) {
     return;
   }
@@ -40,11 +40,14 @@ void handleTopBarTitle(String targetText) {
   });
 }
 
-void handleHorizontalPageController(int selected, double screenWidth) {
-  horizontalControllerNotifier.value.animateTo(
+Future<void> handleBottomHorizontalPageController(
+  int selected,
+  double screenWidth,
+) async {
+  bottomHorizontalControllerNotifier.value.animateTo(
     (screenWidth - 24) * selected,
     duration: Duration(milliseconds: 250),
-    curve: Curves.easeInOut,
+    curve: Curves.easeOut,
   );
 }
 

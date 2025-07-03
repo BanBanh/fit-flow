@@ -12,6 +12,5 @@ ValueNotifier<int> navSelectedNotifier = ValueNotifier(0);
 ValueNotifier<ScrollController> verticalControllerNotifier = ValueNotifier(
   ScrollController(),
 );
-ValueNotifier<ScrollController> horizontalControllerNotifier = ValueNotifier(
-  ScrollController(),
-);
+ValueNotifier<ScrollController> bottomHorizontalControllerNotifier =
+    ValueNotifier(ScrollController());

@@ -30,11 +30,11 @@ class PageTurner extends StatelessWidget {
                 DetailPage(),
                 SizedBox(height: 24),
                 ValueListenableBuilder(
-                  valueListenable: horizontalControllerNotifier,
-                  builder: (context, horizontalController, child) {
+                  valueListenable: bottomHorizontalControllerNotifier,
+                  builder: (context, bottomHorizontalController, child) {
                     return SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      controller: horizontalController,
+                      controller: bottomHorizontalController,
                       physics: NeverScrollableScrollPhysics(),
                       child: Row(
                         children: [

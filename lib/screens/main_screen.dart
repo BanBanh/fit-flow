@@ -1,4 +1,3 @@
-import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/data/notifier.dart';
 import 'package:fit_flow/screens/page_turner.dart';
@@ -50,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: screenHeight,
                   color: screenCurtainColor,
                   duration: Duration(milliseconds: 250),
-                  curve: Curves.easeInOut,
+                  curve: Curves.easeOut,
                 );
               },
             ),
