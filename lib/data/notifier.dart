@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+ValueNotifier<bool> pageTopDecorNotifier = ValueNotifier(false);
 ValueNotifier<bool> refreshNotifier = ValueNotifier(false);
 ValueNotifier<Color> screenCurtainColorNotifier = ValueNotifier(
   Colors.transparent,

@@ -5,7 +5,7 @@ import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/data/notifier.dart';
 import 'package:flutter/material.dart';
 
-Future<void> handleTopBarTitle(String targetText) async {
+void handleTopBarTitle(String targetText) {
   if (topBarTitleNotifier.value == targetText) {
     return;
   }
@@ -40,15 +40,43 @@ Future<void> handleTopBarTitle(String targetText) async {
   });
 }
 
-Future<void> handleBottomHorizontalPageController(
-  int selected,
-  double screenWidth,
-) async {
+void handleVerticalPageController(int selected, double pageHeight) {
+  pageTopDecorNotifier.value = true;
+  bottomHorizontalControllerNotifier.value.jumpTo(
+    bottomHorizontalControllerNotifier.value.offset + 24,
+  );
+  topHorizontalControllerNotifier.value.jumpTo(
+    topHorizontalControllerNotifier.value.offset + 24,
+  );
+  verticalControllerNotifier.value.animateTo(
+    (pageHeight + 24) * selected,
+    duration: Duration(milliseconds: 250),
+    curve: Curves.easeOut,
+  );
+  Timer(Duration(milliseconds: 250), () {
+    pageTopDecorNotifier.value = false;
+    bottomHorizontalControllerNotifier.value.jumpTo(
+      bottomHorizontalControllerNotifier.value.offset - 24,
+    );
+    topHorizontalControllerNotifier.value.jumpTo(
+      topHorizontalControllerNotifier.value.offset - 24,
+    );
+  });
+}
+
+void handleBottomHorizontalPageController(int selected, double screenWidth) {
   bottomHorizontalControllerNotifier.value.animateTo(
     (screenWidth - 24) * selected,
     duration: Duration(milliseconds: 250),
     curve: Curves.easeOut,
   );
+}
+
+Future<void> handleTopHorizontalPageController(
+  int selected,
+  double screenWidth,
+) async {
+  topHorizontalControllerNotifier.value.jumpTo((screenWidth - 24) * selected);
 }
 
 void handleThemeChange(String color, BuildContext context) {

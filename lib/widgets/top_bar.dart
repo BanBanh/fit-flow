@@ -1,5 +1,6 @@
 import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/data/notifier.dart';
+import 'package:fit_flow/widgets/top_bar_back_btn.dart';
 import 'package:flutter/material.dart';
 
 class TopBar extends StatelessWidget {
@@ -17,10 +18,11 @@ class TopBar extends StatelessWidget {
           height: 48,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            // crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(),
-              FittedBox(
+              SizedBox(child: TopBarBackBtn()),
+              Container(
+                alignment: Alignment.center,
                 child: Text(
                   topBarTitle,
                   style: TextStyle(

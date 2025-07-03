@@ -32,8 +32,18 @@ class _SettingPageState extends State<SettingPage> {
       child: Column(
         spacing: 24,
         children: [
+          GestureDetector(
+            onTap: () async {
+              await handleTopHorizontalPageController(1, screenWidth);
+              handleVerticalPageController(1, pageHeight);
+            },
+            child: CListItem(
+              iconData: Icons.account_circle_outlined,
+              title: 'Account',
+            ),
+          ),
           CListItem(
-            imgPath: 'assets/images/settings/1.png',
+            imgPath: 'assets/images/settings/theme_mode.png',
             title: 'Theme Mode',
             widgets: [
               GestureDetector(
@@ -66,7 +76,7 @@ class _SettingPageState extends State<SettingPage> {
             ],
           ),
           CListItem(
-            imgPath: 'assets/images/settings/1.png',
+            imgPath: 'assets/images/settings/theme_color.png',
             title: 'Theme Color',
             widgets: ['blue', 'purple', 'red', 'orange', 'yellow', 'green']
                 .map(

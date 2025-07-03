@@ -90,11 +90,11 @@ class _BottomNavState extends State<BottomNav> {
                                       (bTNSpace + 18 - 24) +
                                       (bTNSpace + 36) * item.$1;
                                 });
-                                await handleBottomHorizontalPageController(
+                                handleBottomHorizontalPageController(
                                   item.$1,
                                   screenWidth,
                                 );
-                                await handleTopBarTitle(titleList[item.$1]);
+                                handleTopBarTitle(titleList[item.$1]);
                               },
                               child: SizedBox.square(
                                 dimension: 36,

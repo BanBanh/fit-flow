@@ -8,6 +8,7 @@ class CListItem extends StatelessWidget {
   const CListItem({
     super.key,
     this.imgPath = '',
+    this.iconData,
     this.title = '',
     this.widgets,
     this.imgColor,
@@ -17,6 +18,7 @@ class CListItem extends StatelessWidget {
   final Color? imgColor;
   final String title;
   final List<Widget>? widgets;
+  final IconData? iconData;
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = context.themeMode;
@@ -70,23 +72,25 @@ class CListItem extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  imgPath,
-                  fit: BoxFit.contain,
-                  color: imgColor ?? MyDecor(isDarkMode).text,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                      child: Text(
-                        'no img',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: MyDecor(isDarkMode).text,
-                          fontWeight: FontWeight.w600,
-                        ),
+                child: iconData != null
+                    ? Icon(iconData, color: MyDecor(isDarkMode).text, size: 36)
+                    : Image.asset(
+                        imgPath,
+                        fit: BoxFit.contain,
+                        color: imgColor ?? MyDecor(isDarkMode).text,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Center(
+                            child: Text(
+                              'no img',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: MyDecor(isDarkMode).text,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ),
             SizedBox(
