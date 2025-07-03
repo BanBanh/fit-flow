@@ -1,4 +1,5 @@
 import 'package:fit_flow/data/notifier.dart';
+import 'package:fit_flow/screens/page/account_page.dart';
 import 'package:fit_flow/screens/page/detail_page.dart';
 import 'package:fit_flow/screens/page/history_page.dart';
 import 'package:fit_flow/screens/page/index_page.dart';
@@ -27,7 +28,17 @@ class PageTurner extends StatelessWidget {
             reverse: true,
             child: Column(
               children: [
-                DetailPage(),
+                ValueListenableBuilder(
+                  valueListenable: topHorizontalControllerNotifier,
+                  builder: (context, topHorizontalController, child) {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      controller: topHorizontalController,
+                      physics: NeverScrollableScrollPhysics(),
+                      child: Row(children: [DetailPage(), AccountPage()]),
+                    );
+                  },
+                ),
                 SizedBox(height: 24),
                 ValueListenableBuilder(
                   valueListenable: bottomHorizontalControllerNotifier,

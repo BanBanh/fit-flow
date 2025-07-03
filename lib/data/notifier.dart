@@ -14,3 +14,6 @@ ValueNotifier<ScrollController> verticalControllerNotifier = ValueNotifier(
 );
 ValueNotifier<ScrollController> bottomHorizontalControllerNotifier =
     ValueNotifier(ScrollController());
+ValueNotifier<ScrollController> topHorizontalControllerNotifier = ValueNotifier(
+  ScrollController(),
+);
