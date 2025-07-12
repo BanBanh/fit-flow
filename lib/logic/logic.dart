@@ -42,7 +42,7 @@ void handleTopBarTitle(String targetText) {
 
 void handleVerticalPageController(int selected, double pageHeight) {
   verticalPageNotifier.value = selected;
-  navBlockerNotifier.value = true;
+  navBlockerNotifier.value = selected == 1 ? true : false;
   pageTopDecorNotifier.value = true;
   bottomHorizontalControllerNotifier.value.jumpTo(
     bottomHorizontalControllerNotifier.value.offset + 24,
@@ -63,11 +63,12 @@ void handleVerticalPageController(int selected, double pageHeight) {
     topHorizontalControllerNotifier.value.jumpTo(
       topHorizontalControllerNotifier.value.offset - 24,
     );
-    navBlockerNotifier.value = false;
   });
 }
 
 void handleBottomHorizontalPageController(int selected, double screenWidth) {
+  navBlockerNotifier.value = true;
+  Timer(Duration(milliseconds: 250), () => navBlockerNotifier.value = false);
   bottomHorizontalControllerNotifier.value.animateTo(
     (screenWidth - 24) * selected,
     duration: Duration(milliseconds: 250),
