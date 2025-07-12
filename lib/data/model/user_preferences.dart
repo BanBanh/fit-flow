@@ -4,7 +4,7 @@ class UserPreferences {
   static const _themeModeKey = 'themeMode';
   static const _primaryColorKey = 'primaryColor';
   static const _secondaryColorKey = 'secondaryColor';
-  static const _darkModeKey = 'darkMode';
+  static const _weightUnitKey = 'weightUnit';
 
   static Box get _box => Hive.box('userPrefs');
 
@@ -35,12 +35,17 @@ class UserPreferences {
   }
 
   static set secondaryColor(String color) {
-    _box.put(_primaryColorKey, color);
+    _box.put(_secondaryColorKey, color);
   }
 
-  // Dark Mode (simple bool)
-  static bool get darkMode {
-    return _box.get(_darkModeKey, defaultValue: false);
+  // Secondary Color (stored as int value)
+  static String get weightUnit {
+    String colorValue = _box.get(_weightUnitKey, defaultValue: 'kg');
+    return colorValue;
+  }
+
+  static set weightUnit(String color) {
+    _box.put(_weightUnitKey, color);
   }
 
   // Clear all preferences
