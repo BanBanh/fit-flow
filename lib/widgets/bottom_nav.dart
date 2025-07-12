@@ -23,7 +23,7 @@ class _BottomNavState extends State<BottomNav> {
     }
     Color primaryColor = MyDecor(isDarkMode).primaryColor;
     final List<String> titleList = [
-      'Index',
+      'Exercises',
       'Search',
       'Work out',
       'History',
@@ -69,16 +69,15 @@ class _BottomNavState extends State<BottomNav> {
                           ].indexed
                           .map(
                             (item) => ValueListenableBuilder(
-                              valueListenable: verticalPageNotifier,
-                              builder: (context, verticalPage, child) {
+                              valueListenable: navBlockerNotifier,
+                              builder: (context, navBlocker, child) {
                                 return GestureDetector(
                                   onTap: () async {
-                                    if (verticalPage == 0) {
-                                      setState(() {
-                                        navIndicatorPosNotifier.value =
-                                            (bTNSpace + 18 - 24) +
-                                            (bTNSpace + 36) * item.$1;
-                                      });
+                                    if (!navBlocker) {
+                                      navSelectedNotifier.value = item.$1;
+                                      navIndicatorPosNotifier.value =
+                                          (bTNSpace + 18 - 24) +
+                                          (bTNSpace + 36) * item.$1;
                                       handleBottomHorizontalPageController(
                                         item.$1,
                                         screenWidth,
