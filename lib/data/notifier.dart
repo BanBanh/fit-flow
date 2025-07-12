@@ -7,9 +7,10 @@ ValueNotifier<Color> screenCurtainColorNotifier = ValueNotifier(
 );
 
 ValueNotifier<double> navIndicatorPosNotifier = ValueNotifier(0);
-ValueNotifier<String> topBarTitleNotifier = ValueNotifier('Index');
-ValueNotifier<int> navSelectedNotifier = ValueNotifier(0);
+ValueNotifier<String> topBarTitleNotifier = ValueNotifier('Work Out');
+ValueNotifier<int> navSelectedNotifier = ValueNotifier(2);
 
+ValueNotifier<int> verticalPageNotifier = ValueNotifier(1);
 ValueNotifier<ScrollController> verticalControllerNotifier = ValueNotifier(
   ScrollController(),
 );

@@ -41,6 +41,7 @@ void handleTopBarTitle(String targetText) {
 }
 
 void handleVerticalPageController(int selected, double pageHeight) {
+  verticalPageNotifier.value = selected;
   pageTopDecorNotifier.value = true;
   bottomHorizontalControllerNotifier.value.jumpTo(
     bottomHorizontalControllerNotifier.value.offset + 24,
@@ -51,7 +52,7 @@ void handleVerticalPageController(int selected, double pageHeight) {
   verticalControllerNotifier.value.animateTo(
     (pageHeight + 24) * selected,
     duration: Duration(milliseconds: 250),
-    curve: Curves.easeOut,
+    curve: Curves.easeInOut,
   );
   Timer(Duration(milliseconds: 250), () {
     pageTopDecorNotifier.value = false;
@@ -68,7 +69,7 @@ void handleBottomHorizontalPageController(int selected, double screenWidth) {
   bottomHorizontalControllerNotifier.value.animateTo(
     (screenWidth - 24) * selected,
     duration: Duration(milliseconds: 250),
-    curve: Curves.easeOut,
+    curve: Curves.easeInOut,
   );
 }
 

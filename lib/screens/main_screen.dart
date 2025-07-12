@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: screenHeight,
                   color: screenCurtainColor,
                   duration: Duration(milliseconds: 250),
-                  curve: Curves.easeOut,
+                  curve: Curves.easeInOut,
                 );
               },
             ),

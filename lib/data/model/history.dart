@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 class History {
   @HiveField(0)
   final String id; // Unique
+  final String exerciseId;
   final int rep;
   final int set;
   final double weight;
@@ -14,6 +15,7 @@ class History {
 
   History({
     required this.id,
+    required this.exerciseId,
     required this.rep,
     required this.set,
     required this.weight,

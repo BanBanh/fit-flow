@@ -1,3 +1,4 @@
+import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/logic/logic.dart';
 import 'package:fit_flow/widgets/custom_list_item.dart';
@@ -20,7 +21,7 @@ class _SettingPageState extends State<SettingPage> {
 
     final double pageWidth = screenWidth - 24 - 24;
     final double pageHeight = screenHeight - 24 - 48 - 24 - 72 - 24;
-
+    Color primaryColor = MyDecor(isDarkMode).primaryColor;
     return Container(
       width: pageWidth,
       height: pageHeight,
@@ -43,54 +44,67 @@ class _SettingPageState extends State<SettingPage> {
             ),
           ),
           CListItem(
-            imgPath: 'assets/images/settings/theme_mode.png',
+            iconData: Icons.brightness_4_outlined,
             title: 'Theme Mode',
             widgets: [
-              GestureDetector(
-                onTap: () => handleThemeChange('dark', context),
-                child: CListItemItem(
-                  text: 'dark',
-                  bgColor: 'dark',
-                  borderColor: 'dark',
-                  textColor: 'dark',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => handleThemeChange('light', context),
-                child: CListItemItem(
-                  text: 'light',
-                  bgColor: 'light',
-                  borderColor: 'light',
-                  textColor: 'light',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => handleThemeChange('system', context),
-                child: CListItemItem(
-                  text: 'system',
-                  bgColor: 'system',
-                  borderColor: 'system',
-                  textColor: 'system',
-                ),
+              Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                children: [
+                  GestureDetector(
+                    onTap: () => handleThemeChange('dark', context),
+                    child: CListItemItem(
+                      text: 'dark',
+                      bgColor: 'dark',
+                      borderColor: 'dark',
+                      textColor: 'dark',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => handleThemeChange('light', context),
+                    child: CListItemItem(
+                      text: 'light',
+                      bgColor: 'light',
+                      borderColor: 'light',
+                      textColor: 'light',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => handleThemeChange('system', context),
+                    child: CListItemItem(
+                      text: 'system',
+                      bgColor: 'system',
+                      borderColor: 'system',
+                      textColor: 'system',
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
           CListItem(
-            imgPath: 'assets/images/settings/theme_color.png',
+            iconData: Icons.palette_outlined,
+            imgColor: primaryColor,
             title: 'Theme Color',
-            widgets: ['blue', 'purple', 'red', 'orange', 'yellow', 'green']
-                .map(
-                  (e) => GestureDetector(
-                    onTap: () => handleThemeChange(e, context),
-                    child: CListItemItem(
-                      text: e,
-                      textColor: 'light',
-                      borderColor: 'light',
-                      bgColor: e,
-                    ),
-                  ),
-                )
-                .toList(),
+            widgets: [
+              Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                children: ['blue', 'purple', 'red', 'orange', 'yellow', 'green']
+                    .map(
+                      (e) => GestureDetector(
+                        onTap: () => handleThemeChange(e, context),
+                        child: CListItemItem(
+                          text: e,
+                          textColor: 'light',
+                          borderColor: 'light',
+                          bgColor: e,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
           ),
         ],
       ),

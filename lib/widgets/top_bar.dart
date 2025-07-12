@@ -20,18 +20,44 @@ class TopBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(child: TopBarBackBtn()),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  topBarTitle,
-                  style: TextStyle(
-                    color: MyDecor(isDarkMode).text,
-                    fontSize: 36,
-                  ),
+              SizedBox(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 36,
+                      height: 36,
+                      child: ValueListenableBuilder(
+                        valueListenable: verticalPageNotifier,
+                        builder: (context, verticalPage, child) {
+                          return AnimatedOpacity(
+                            duration: Duration(milliseconds: 250),
+                            opacity: verticalPage == 0 ? 0 : 1,
+                            curve: Curves.easeOut,
+                            child: TopBarBackBtn(),
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    SizedBox(width: 36, height: 36),
+                  ],
                 ),
               ),
-              SizedBox(),
+              Text(
+                topBarTitle,
+                style: TextStyle(color: MyDecor(isDarkMode).text, fontSize: 36),
+              ),
+              SizedBox(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(width: 36, height: 36),
+                    SizedBox(width: 12),
+                    SizedBox(width: 36, height: 36),
+                  ],
+                ),
+              ),
             ],
           ),
         );

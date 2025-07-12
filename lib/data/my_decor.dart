@@ -38,4 +38,15 @@ class MyDecor {
   Color get orange => Color(0xFFEA9D5A);
   Color get yellow => Color(0xFFEAC55A);
   Color get green => Color(0xFF5AEA6A);
+
+  Color get primaryColor => switch (UserPreferences.primaryColor) {
+    'blue' => MyDecor(isDarkMode).blue,
+    'purple' => MyDecor(isDarkMode).purple,
+    'red' => MyDecor(isDarkMode).red,
+    'orange' => MyDecor(isDarkMode).orange,
+    'yellow' => MyDecor(isDarkMode).yellow,
+    'green' => MyDecor(isDarkMode).green,
+
+    String() => throw UnimplementedError(),
+  };
 }

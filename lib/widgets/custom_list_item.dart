@@ -24,22 +24,7 @@ class CListItem extends StatelessWidget {
     final bool isDarkMode = context.themeMode;
 
     final double screenWidth = MediaQuery.of(context).size.width;
-    Color primaryColor = MyDecor(isDarkMode).blue;
-    switch (UserPreferences.primaryColor) {
-      case 'blue':
-        primaryColor = MyDecor(isDarkMode).blue;
-      case 'purple':
-        primaryColor = MyDecor(isDarkMode).purple;
-      case 'red':
-        primaryColor = MyDecor(isDarkMode).red;
-      case 'orange':
-        primaryColor = MyDecor(isDarkMode).orange;
-      case 'yellow':
-        primaryColor = MyDecor(isDarkMode).yellow;
-      case 'green':
-        primaryColor = MyDecor(isDarkMode).green;
-    }
-
+    Color primaryColor = MyDecor(isDarkMode).primaryColor;
     return Container(
       width: screenWidth - 48 - 48,
       constraints: BoxConstraints(minHeight: 96),
@@ -73,7 +58,11 @@ class CListItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: iconData != null
-                    ? Icon(iconData, color: MyDecor(isDarkMode).text, size: 36)
+                    ? Icon(
+                        iconData,
+                        color: imgColor ?? MyDecor(isDarkMode).text,
+                        size: 36,
+                      )
                     : Image.asset(
                         imgPath,
                         fit: BoxFit.contain,
@@ -111,7 +100,7 @@ class CListItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Wrap(spacing: 6, runSpacing: 6, children: widgets ?? []),
+                  ...widgets ?? [],
                 ],
               ),
             ),

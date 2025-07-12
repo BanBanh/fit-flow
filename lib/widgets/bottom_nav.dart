@@ -16,27 +16,13 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     final bool isDarkMode = context.themeMode;
     final double screenWidth = MediaQuery.of(context).size.width;
-
     double bTNSpace = (screenWidth - 48 - 180) / 6;
     // double activeIndicatorPos = (bTNSpace + 18 - 24) + (bTNSpace + 36) * 0;
     if (navIndicatorPosNotifier.value == 0) {
-      navIndicatorPosNotifier.value = bTNSpace + 18 - 24;
+      navIndicatorPosNotifier.value =
+          (bTNSpace + 18 - 24) + (bTNSpace + 36) * navSelectedNotifier.value;
     }
-    Color primaryColor = MyDecor(isDarkMode).blue;
-    switch (UserPreferences.primaryColor) {
-      case 'blue':
-        primaryColor = MyDecor(isDarkMode).blue;
-      case 'purple':
-        primaryColor = MyDecor(isDarkMode).purple;
-      case 'red':
-        primaryColor = MyDecor(isDarkMode).red;
-      case 'orange':
-        primaryColor = MyDecor(isDarkMode).orange;
-      case 'yellow':
-        primaryColor = MyDecor(isDarkMode).yellow;
-      case 'green':
-        primaryColor = MyDecor(isDarkMode).green;
-    }
+    Color primaryColor = MyDecor(isDarkMode).primaryColor;
     final List<String> titleList = [
       'Index',
       'Search',
@@ -61,7 +47,7 @@ class _BottomNavState extends State<BottomNav> {
                 top: 12,
                 left: navIndicatorPos,
                 duration: Duration(milliseconds: 250),
-                curve: Curves.easeOut,
+                curve: Curves.easeInOut,
                 child: Container(
                   width: 48,
                   height: 48,
@@ -83,27 +69,34 @@ class _BottomNavState extends State<BottomNav> {
                             Icons.settings_outlined,
                           ].indexed
                           .map(
-                            (item) => GestureDetector(
-                              onTap: () async {
-                                setState(() {
-                                  navIndicatorPosNotifier.value =
-                                      (bTNSpace + 18 - 24) +
-                                      (bTNSpace + 36) * item.$1;
-                                });
-                                handleBottomHorizontalPageController(
-                                  item.$1,
-                                  screenWidth,
+                            (item) => ValueListenableBuilder(
+                              valueListenable: verticalPageNotifier,
+                              builder: (context, verticalPage, child) {
+                                return GestureDetector(
+                                  onTap: () async {
+                                    if (verticalPage == 0) {
+                                      setState(() {
+                                        navIndicatorPosNotifier.value =
+                                            (bTNSpace + 18 - 24) +
+                                            (bTNSpace + 36) * item.$1;
+                                      });
+                                      handleBottomHorizontalPageController(
+                                        item.$1,
+                                        screenWidth,
+                                      );
+                                      handleTopBarTitle(titleList[item.$1]);
+                                    }
+                                  },
+                                  child: SizedBox.square(
+                                    dimension: 36,
+                                    child: Icon(
+                                      item.$2,
+                                      color: MyDecor(isDarkMode).text,
+                                      size: 36,
+                                    ),
+                                  ),
                                 );
-                                handleTopBarTitle(titleList[item.$1]);
                               },
-                              child: SizedBox.square(
-                                dimension: 36,
-                                child: Icon(
-                                  item.$2,
-                                  color: MyDecor(isDarkMode).text,
-                                  size: 36,
-                                ),
-                              ),
                             ),
                           )
                           .toList(),
