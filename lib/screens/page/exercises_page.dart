@@ -1,9 +1,12 @@
-import 'dart:math';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
 
+import 'package:fit_flow/data/model/exercise.dart';
 import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/data/test.dart';
 import 'package:fit_flow/widgets/custom_list_item.dart';
-import 'package:flutter/material.dart';
+
+ValueNotifier<bool> exerciseRemoveNotifier = ValueNotifier(false);
 
 class ExercisesPage extends StatefulWidget {
   const ExercisesPage({super.key});
@@ -34,9 +37,21 @@ class _ExercisesPageState extends State<ExercisesPage> {
       child: ClipRRect(
         borderRadius: BorderRadiusGeometry.circular(18),
         child: SingleChildScrollView(
-          child: Column(
-            spacing: 24,
-            children: exercises.keys.map((name) => ExerciseItem(name)).toList(),
+          child: ValueListenableBuilder(
+            valueListenable: exerciseRemoveNotifier,
+            builder: (context, value, child) {
+              return Column(
+                spacing: 24,
+                // children: exercises.indexed
+                //     .map((e) => ExerciseItem(index: e.$1, exercise: e.$2))
+                //     .toList(),
+                children: [
+                  ExerciseList(Category.upperBody),
+                  ExerciseList(Category.core),
+                  ExerciseList(Category.lowerBody),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -44,9 +59,81 @@ class _ExercisesPageState extends State<ExercisesPage> {
   }
 }
 
+class ExerciseList extends StatefulWidget {
+  const ExerciseList(this.category, {super.key});
+  final Category category;
+  @override
+  State<ExerciseList> createState() => _ExerciseListState();
+}
+
+class _ExerciseListState extends State<ExerciseList> {
+  final ExpansibleController controller = ExpansibleController();
+  @override
+  Widget build(BuildContext context) {
+    final bool isDarkMode = context.themeMode;
+    final Category category = widget.category;
+    final List<(int, Exercise)> exercises = exercisesTest.indexed
+        .where((element) => element.$2.category == category)
+        .toList();
+    final int exercisesLength = exercises.length;
+    return ExpansionTile(
+      controller: controller,
+      tilePadding: EdgeInsets.zero,
+      childrenPadding: EdgeInsets.only(bottom: 10),
+      showTrailingIcon: false,
+      expansionAnimationStyle: AnimationStyle(
+        duration: Duration(milliseconds: 75),
+      ),
+      initiallyExpanded: exercises.isEmpty,
+      enabled: exercises.isNotEmpty,
+      title: CListItem(
+        title: category.name,
+        widgets: exercises.isEmpty ? [CListItemItem(text: 'Empty')] : [],
+        border: Border.symmetric(
+          vertical: BorderSide(
+            width: 5,
+            color: MyDecor(isDarkMode).borderMuted,
+          ),
+        ),
+        verticalBorder: 10,
+      ),
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: MyDecor(isDarkMode).bgLight,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: exercises.indexed
+                .map(
+                  (e) => ExerciseItem(
+                    index0: e.$1,
+                    index1: e.$2.$1,
+                    exercise: e.$2.$2,
+                    exercisesLength: exercisesLength,
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class ExerciseItem extends StatefulWidget {
-  const ExerciseItem(this.index, {super.key});
-  final String index;
+  const ExerciseItem({
+    super.key,
+    required this.index0,
+    required this.index1,
+    required this.exercisesLength,
+    required this.exercise,
+  });
+  final int index0;
+  final int index1;
+  final int exercisesLength;
+  final Exercise exercise;
 
   @override
   State<ExerciseItem> createState() => _ExerciseItemState();
@@ -54,12 +141,17 @@ class ExerciseItem extends StatefulWidget {
 
 class _ExerciseItemState extends State<ExerciseItem> {
   double dragOffset = 0.0;
-  bool isSwiped = false;
   @override
   Widget build(BuildContext context) {
+    final Exercise exercise = widget.exercise;
+    final int index = widget.index1;
+    final bool isDarkMode = context.themeMode;
     return ClipRRect(
       borderRadius: BorderRadiusGeometry.circular(18),
       child: GestureDetector(
+        onTap: () {
+          // detail page
+        },
         onHorizontalDragUpdate: (details) {
           if (dragOffset + details.delta.dx <= 0 &&
               dragOffset + details.delta.dx > -100) {
@@ -69,14 +161,14 @@ class _ExerciseItemState extends State<ExerciseItem> {
           }
         },
         onHorizontalDragEnd: (details) {
-          print(dragOffset);
+          // print(dragOffset);
           if (dragOffset < -50) {
-            print('trash');
+            // print('trash');
             setState(() => dragOffset = 0);
-            // Swiped enough to show trash
-            setState(() => isSwiped = true);
+            setState(() => exercisesTest.removeAt(index));
+            exerciseRemoveNotifier.value = !exerciseRemoveNotifier.value;
           } else {
-            print('no trash');
+            // print('no trash');
             setState(() => dragOffset = 0); // Reset if not swiped enough
           }
         },
@@ -84,7 +176,7 @@ class _ExerciseItemState extends State<ExerciseItem> {
         child: Stack(
           children: [
             // Red background with trash icon (hidden initially)
-            if (isSwiped || dragOffset < 0)
+            if (dragOffset < 0)
               Positioned.fill(
                 child: AnimatedContainer(
                   duration: Duration(),
@@ -102,7 +194,23 @@ class _ExerciseItemState extends State<ExerciseItem> {
             // The draggable item
             Transform.translate(
               offset: Offset(dragOffset, 0),
-              child: CListItem(title: widget.index),
+              child: CListItem(
+                title: exercise.name,
+                border: Border(
+                  top: widget.index0 == 0
+                      ? BorderSide(width: 5, color: MyDecor(isDarkMode).border)
+                      : BorderSide.none,
+                  bottom: widget.index0 == widget.exercisesLength - 1
+                      ? BorderSide(width: 5, color: MyDecor(isDarkMode).border)
+                      : BorderSide.none,
+                ),
+                widgets: [
+                  CListItemItem(
+                    text:
+                        'Last Performed: ${exercise.lastPerformed != null ? exercise.lastPerformed.toString() : 'Not Yet'}',
+                  ),
+                ],
+              ),
             ),
           ],
         ),

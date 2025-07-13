@@ -31,10 +31,6 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: MainScreen(),
-          // home: Scaffold(
-          //   appBar: AppBar(backgroundColor: Colors.green, title: Text('title')),
-          //   body: Center(child: Text('data')),
-          // ),
         );
       },
     );

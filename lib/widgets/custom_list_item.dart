@@ -10,20 +10,27 @@ class CListItem extends StatelessWidget {
     this.imgPath = '',
     this.iconData,
     this.title = '',
+    this.titleField,
     this.widgets,
     this.imgColor,
+    this.border,
+    this.verticalBorder = 0,
   });
 
   final String imgPath;
   final Color? imgColor;
   final String title;
+  final Widget? titleField;
   final List<Widget>? widgets;
   final IconData? iconData;
+  final BoxBorder? border;
+  final int verticalBorder;
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = context.themeMode;
 
-    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth =
+        MediaQuery.of(context).size.width - verticalBorder;
     Color primaryColor = MyDecor(isDarkMode).primaryColor;
     return Container(
       width: screenWidth - 48 - 48,
@@ -31,6 +38,11 @@ class CListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: MyDecor(isDarkMode).bgLight,
         borderRadius: BorderRadius.circular(16),
+        border:
+            border ??
+            Border(
+              bottom: BorderSide(width: 5, color: MyDecor(isDarkMode).border),
+            ),
       ),
       padding: EdgeInsets.all(18),
       child: Center(
@@ -102,6 +114,16 @@ class CListItem extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                    ),
+                  ),
+                if (titleField != null)
+                  SizedBox(
+                    width: imgPath.isNotEmpty || iconData != null
+                        ? screenWidth - 48 - 48 - 18 * 2 - 60 - 18
+                        : screenWidth - 48 - 48 - 18 * 2,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: titleField,
                     ),
                   ),
               ],
@@ -234,7 +256,7 @@ class CListItemItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: bgC,
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: borderC, width: 3),
+        border: Border(bottom: BorderSide(color: borderC, width: 3)),
       ),
       child: Text(
         text,

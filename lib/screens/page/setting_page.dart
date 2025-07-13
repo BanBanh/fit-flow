@@ -106,9 +106,13 @@ class _SettingPageState extends State<SettingPage> {
                                 onTap: () => handleThemeChange(e, context),
                                 child: CListItemItem(
                                   text: e,
-                                  textColor: 'light',
-                                  borderColor: 'light',
-                                  bgColor: e,
+                                  textColor: UserPreferences.primaryColor == e
+                                      ? e
+                                      : UserPreferences.themeMode,
+                                  borderColor: UserPreferences.themeMode,
+                                  bgColor: UserPreferences.primaryColor == e
+                                      ? UserPreferences.themeMode
+                                      : e,
                                 ),
                               ),
                             )
@@ -130,7 +134,6 @@ class _SettingPageState extends State<SettingPage> {
                   imgPath: 'assets/images/${UserPreferences.weightUnit}.png',
                 ),
               ),
-              
             ],
           ),
         ),
