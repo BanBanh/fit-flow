@@ -1,3 +1,4 @@
+import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/logic/logic.dart';
 import 'package:fit_flow/widgets/custom_list_item.dart';
@@ -29,83 +30,110 @@ class _SettingPageState extends State<SettingPage> {
         borderRadius: BorderRadius.circular(24),
       ),
       padding: EdgeInsets.all(24),
-      child: Column(
-        spacing: 24,
-        children: [
-          GestureDetector(
-            onTap: () async {
-              await handleTopHorizontalPageController(1, screenWidth);
-              handleVerticalPageController(1, pageHeight);
-            },
-            child: CListItem(
-              iconData: Icons.account_circle_outlined,
-              title: 'Account',
-            ),
-          ),
-          CListItem(
-            iconData: Icons.brightness_4_outlined,
-            title: 'Theme Mode',
-            widgets: [
-              Wrap(
-                spacing: 6,
-                runSpacing: 6,
-                children: [
-                  GestureDetector(
-                    onTap: () => handleThemeChange('dark', context),
-                    child: CListItemItem(
-                      text: 'dark',
-                      bgColor: 'dark',
-                      borderColor: 'dark',
-                      textColor: 'dark',
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => handleThemeChange('light', context),
-                    child: CListItemItem(
-                      text: 'light',
-                      bgColor: 'light',
-                      borderColor: 'light',
-                      textColor: 'light',
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => handleThemeChange('system', context),
-                    child: CListItemItem(
-                      text: 'system',
-                      bgColor: 'system',
-                      borderColor: 'system',
-                      textColor: 'system',
-                    ),
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.circular(18),
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 24,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  await handleTopHorizontalPageController(1, screenWidth);
+                  handleVerticalPageController(1, pageHeight);
+                },
+                child: CListItem(
+                  iconData: Icons.account_circle_outlined,
+                  title: 'Account',
+                ),
+              ),
+              CListItem(
+                iconData: Icons.brightness_4_outlined,
+                title: 'Theme Mode',
+                widgets: [
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      GestureDetector(
+                        onTap: () => handleThemeChange('dark', context),
+                        child: CListItemItem(
+                          text: 'dark',
+                          bgColor: 'dark',
+                          borderColor: UserPreferences.themeMode == 'dark'
+                              ? UserPreferences.primaryColor
+                              : 'dark',
+                          textColor: 'dark',
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => handleThemeChange('light', context),
+                        child: CListItemItem(
+                          text: 'light',
+                          bgColor: 'light',
+                          borderColor: UserPreferences.themeMode == 'light'
+                              ? UserPreferences.primaryColor
+                              : 'light',
+                          textColor: 'light',
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => handleThemeChange('system', context),
+                        child: CListItemItem(
+                          text: 'system',
+                          bgColor: 'system',
+                          borderColor: UserPreferences.themeMode == 'system'
+                              ? UserPreferences.primaryColor
+                              : 'system',
+                          textColor: 'system',
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-          CListItem(
-            iconData: Icons.palette_outlined,
-            imgColor: primaryColor,
-            title: 'Theme Color',
-            widgets: [
-              Wrap(
-                spacing: 6,
-                runSpacing: 6,
-                children: ['blue', 'purple', 'red', 'orange', 'yellow', 'green']
-                    .map(
-                      (e) => GestureDetector(
-                        onTap: () => handleThemeChange(e, context),
-                        child: CListItemItem(
-                          text: e,
-                          textColor: 'light',
-                          borderColor: 'light',
-                          bgColor: e,
-                        ),
-                      ),
-                    )
-                    .toList(),
+              CListItem(
+                iconData: Icons.palette_outlined,
+                imgColor: primaryColor,
+                title: 'Theme Color',
+                widgets: [
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children:
+                        ['blue', 'purple', 'red', 'orange', 'yellow', 'green']
+                            .map(
+                              (e) => GestureDetector(
+                                onTap: () => handleThemeChange(e, context),
+                                child: CListItemItem(
+                                  text: e,
+                                  textColor: 'light',
+                                  borderColor: 'light',
+                                  bgColor: e,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                  ),
+                ],
               ),
+              GestureDetector(
+                onTap: () {
+                  if (UserPreferences.weightUnit == 'kg') {
+                    UserPreferences.weightUnit = 'lbs';
+                  } else {
+                    UserPreferences.weightUnit = 'kg';
+                  }
+                  setState(() {});
+                },
+                child: CListItem(
+                  title: 'Weight Unit',
+                  imgPath: 'assets/images/${UserPreferences.weightUnit}.png',
+                ),
+              ),
+              
             ],
           ),
-        ],
+        ),
       ),
     );
   }

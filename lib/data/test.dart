@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Map exercises = {
+Map<String, Map<String, dynamic>> exercises = {
   'push up': {
     'notes': '',
     'lastPerformed': '10 07 2025',

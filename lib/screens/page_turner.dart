@@ -2,7 +2,7 @@ import 'package:fit_flow/data/notifier.dart';
 import 'package:fit_flow/screens/page/account_page.dart';
 import 'package:fit_flow/screens/page/detail_page.dart';
 import 'package:fit_flow/screens/page/history_page.dart';
-import 'package:fit_flow/screens/page/index_page.dart';
+import 'package:fit_flow/screens/page/exercises_page.dart';
 import 'package:fit_flow/screens/page/search_page.dart';
 import 'package:fit_flow/screens/page/setting_page.dart';
 import 'package:fit_flow/screens/page/work_out_page.dart';
@@ -64,7 +64,7 @@ class PageTurner extends StatelessWidget {
                             child: Row(
                               children: [
                                 SizedBox(width: 24),
-                                IndexPage(),
+                                ExercisesPage(),
                                 SizedBox(width: 24),
                                 SearchPage(),
                                 SizedBox(width: 24),

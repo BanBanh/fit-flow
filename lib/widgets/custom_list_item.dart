@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fit_flow/data/my_decor.dart';
 
@@ -32,76 +34,88 @@ class CListItem extends StatelessWidget {
       ),
       padding: EdgeInsets.all(18),
       child: Center(
-        child: Row(
+        child: Column(
           spacing: 18,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: MyDecor(isDarkMode).bgLight,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: MyDecor(isDarkMode).textMuted,
-                  strokeAlign: BorderSide.strokeAlignOutside,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: MyDecor(isDarkMode).textMuted,
-                    blurRadius: 9,
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: iconData != null
-                    ? Icon(
-                        iconData,
-                        color: imgColor ?? MyDecor(isDarkMode).text,
-                        size: 36,
-                      )
-                    : Image.asset(
-                        imgPath,
-                        fit: BoxFit.contain,
-                        color: imgColor ?? MyDecor(isDarkMode).text,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Center(
-                            child: Text(
-                              'no img',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: MyDecor(isDarkMode).text,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          );
-                        },
+            Row(
+              spacing: 18,
+              children: [
+                if (imgPath.isNotEmpty || iconData != null)
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: MyDecor(isDarkMode).bgLight,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: MyDecor(isDarkMode).textMuted,
+                        strokeAlign: BorderSide.strokeAlignOutside,
                       ),
-              ),
-            ),
-            SizedBox(
-              width: screenWidth - 48 - 48 - 18 * 2 - 60 - 18,
-              child: Column(
-                spacing: 6,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
+                      boxShadow: [
+                        BoxShadow(
+                          color: MyDecor(isDarkMode).textMuted,
+                          blurRadius: 9,
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: iconData != null
+                          ? Icon(
+                              iconData,
+                              color: imgColor ?? MyDecor(isDarkMode).text,
+                              size: 36,
+                            )
+                          : Image.asset(
+                              imgPath,
+                              fit: BoxFit.contain,
+                              color: imgColor ?? MyDecor(isDarkMode).text,
+                              errorBuilder: (context, error, stackTrace) {
+                                log('', error: error);
+                                return Center(
+                                  child: Text(
+                                    'no img',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: MyDecor(isDarkMode).text,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                    ),
+                  ),
+                if (title.isNotEmpty)
+                  SizedBox(
+                    width: imgPath.isNotEmpty || iconData != null
+                        ? screenWidth - 48 - 48 - 18 * 2 - 60 - 18
+                        : screenWidth - 48 - 48 - 18 * 2,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
-                  ...widgets ?? [],
-                ],
-              ),
+              ],
             ),
+            if (widgets != null)
+              SizedBox(
+                width: screenWidth - 48 - 48 - 18 * 2,
+                child: Column(
+                  spacing: 6,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: widgets ?? [],
+                ),
+              ),
           ],
         ),
       ),
@@ -220,7 +234,7 @@ class CListItemItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: bgC,
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: borderC, width: 2),
+        border: Border.all(color: borderC, width: 3),
       ),
       child: Text(
         text,
