@@ -1,6 +1,7 @@
 import 'package:fit_flow/data/model/user_preferences.dart';
 import 'package:fit_flow/data/my_decor.dart';
 import 'package:fit_flow/logic/logic.dart';
+import 'package:fit_flow/logic/page_controller.dart';
 import 'package:fit_flow/widgets/custom_list_item.dart';
 import 'package:flutter/material.dart';
 

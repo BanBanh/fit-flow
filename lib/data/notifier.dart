@@ -10,10 +10,11 @@ ValueNotifier<Color> screenCurtainColorNotifier = ValueNotifier(
 
 ValueNotifier<double> navIndicatorPosNotifier = ValueNotifier(0);
 ValueNotifier<int> navSelectedNotifier = ValueNotifier(0);
-ValueNotifier<String> navTitleNotifier = ValueNotifier('Exercises');
 ValueNotifier<bool> navBlockerNotifier = ValueNotifier(false);
 
 ValueNotifier<String> topBarTitleNotifier = ValueNotifier('Exercises');
+ValueNotifier<String> botTitleNotifier = ValueNotifier('Exercises');
+ValueNotifier<String> topTitleNotifier = ValueNotifier('Details');
 
 ValueNotifier<int> verticalPageNotifier = ValueNotifier(0);
 ValueNotifier<ScrollController> verticalControllerNotifier = ValueNotifier(
