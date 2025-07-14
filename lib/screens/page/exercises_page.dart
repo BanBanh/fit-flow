@@ -72,6 +72,11 @@ class _ExerciseListState extends State<ExerciseList> {
   Widget build(BuildContext context) {
     final bool isDarkMode = context.themeMode;
     final Category category = widget.category;
+    final String categoryStr = switch (category) {
+      Category.core => 'Core',
+      Category.upperBody => 'Upper Body',
+      Category.lowerBody => 'Lower Body',
+    };
     final List<(int, Exercise)> exercises = exercisesTest.indexed
         .where((element) => element.$2.category == category)
         .toList();
@@ -87,7 +92,7 @@ class _ExerciseListState extends State<ExerciseList> {
       initiallyExpanded: exercises.isEmpty,
       enabled: exercises.isNotEmpty,
       title: CListItem(
-        title: category.name,
+        title: categoryStr,
         widgets: exercises.isEmpty ? [CListItemItem(text: 'Empty')] : [],
         border: Border.symmetric(
           vertical: BorderSide(
@@ -205,9 +210,31 @@ class _ExerciseItemState extends State<ExerciseItem> {
                       : BorderSide.none,
                 ),
                 widgets: [
-                  CListItemItem(
-                    text:
-                        'Last Performed: ${exercise.lastPerformed != null ? exercise.lastPerformed.toString() : 'Not Yet'}',
+                  if (exercise.lastPerformed != null)
+                    CListItemItem(
+                      text:
+                          'Last Performed: ${exercise.lastPerformed.toString()}',
+                    ),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: exercise.personalRecord
+                        .toMap()
+                        .map((key, value) {
+                          MapEntry<String, Widget> result = MapEntry(
+                            key,
+                            SizedBox.shrink(),
+                          );
+                          if (value != null) {
+                            result = MapEntry(
+                              key,
+                              CListItemItem(text: '$key: $value'),
+                            );
+                          }
+                          return result;
+                        })
+                        .values
+                        .toList(),
                   ),
                 ],
               ),

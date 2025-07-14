@@ -47,6 +47,10 @@ class Date {
     return '$dayStr ${monthNames[month - 1]} $year';
   }
 
+  DateTime toDateTime() {
+    return DateTime.parse(toString().split(' ').reversed.toString());
+  }
+
   // Helper methods
   static int _daysInMonth(int month, int year) {
     if (month == 2) return _isLeapYear(year) ? 29 : 28;

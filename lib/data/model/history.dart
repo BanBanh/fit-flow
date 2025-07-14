@@ -3,7 +3,7 @@ import 'package:fit_flow/data/model/workout.dart';
 
 class History {
   final Date date;
-  final List<WorkOut> workOutList;
+  final Map<String, WorkOut> workOutList;
 
   History({required this.date, required this.workOutList});
 }
