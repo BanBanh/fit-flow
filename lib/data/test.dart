@@ -25,6 +25,12 @@ List<Exercise> exercisesTest = [
   ),
 ]..sort((a, b) => a.name.toUpperCase().compareTo(b.name.toUpperCase()));
 
-List<History> histories = [
-  History(date: Date.now(), workOutList: {'Push up': WorkOut(rep: 8, set: 3)}),
+List<History> historiesTest = [
+  History(
+    date: Date.now(),
+    workOutList: {
+      'Push up': WorkOut(rep: 8, set: 3),
+      'test': WorkOut(rep: 8, set: 3),
+    },
+  ),
 ];

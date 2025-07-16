@@ -15,6 +15,7 @@ class CListItem extends StatelessWidget {
     this.imgColor,
     this.border,
     this.verticalBorder = 0,
+    this.titleRight,
   });
 
   final String imgPath;
@@ -25,6 +26,7 @@ class CListItem extends StatelessWidget {
   final IconData? iconData;
   final BoxBorder? border;
   final int verticalBorder;
+  final Widget? titleRight;
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = context.themeMode;
@@ -34,7 +36,7 @@ class CListItem extends StatelessWidget {
     Color primaryColor = MyDecor(isDarkMode).primaryColor;
     return Container(
       width: screenWidth - 48 - 48,
-      constraints: BoxConstraints(minHeight: 96),
+      // constraints: BoxConstraints(minHeight: 96),
       decoration: BoxDecoration(
         color: MyDecor(isDarkMode).bgLight,
         borderRadius: BorderRadius.circular(16),
@@ -47,10 +49,12 @@ class CListItem extends StatelessWidget {
       padding: EdgeInsets.all(18),
       child: Center(
         child: Column(
-          spacing: 18,
           crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: 18,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               spacing: 18,
               children: [
                 if (imgPath.isNotEmpty || iconData != null)
@@ -100,16 +104,16 @@ class CListItem extends StatelessWidget {
                     ),
                   ),
                 if (title.isNotEmpty)
-                  SizedBox(
-                    width: imgPath.isNotEmpty || iconData != null
-                        ? screenWidth - 48 - 48 - 18 * 2 - 60 - 18
-                        : screenWidth - 48 - 48 - 18 * 2,
+                  FittedBox(
+                    // width: imgPath.isNotEmpty || iconData != null
+                    //     ? screenWidth - 48 - 48 - 18 * 2 - 60 - 18
+                    //     : screenWidth - 48 - 48 - 18 * 2,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Text(
                         title,
                         style: TextStyle(
-                          color: primaryColor,
+                          color: MyDecor(isDarkMode).text,
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
                         ),
@@ -126,6 +130,7 @@ class CListItem extends StatelessWidget {
                       child: titleField,
                     ),
                   ),
+                if (titleRight != null) titleRight!,
               ],
             ),
             if (widgets != null)

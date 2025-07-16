@@ -46,7 +46,10 @@ class _ExercisesPageState extends State<ExercisesPage> {
                 //     .map((e) => ExerciseItem(index: e.$1, exercise: e.$2))
                 //     .toList(),
                 children: [
-                  ExerciseList(Category.upperBody),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: ExerciseList(Category.upperBody),
+                  ),
                   ExerciseList(Category.core),
                   ExerciseList(Category.lowerBody),
                 ],
@@ -68,6 +71,13 @@ class ExerciseList extends StatefulWidget {
 
 class _ExerciseListState extends State<ExerciseList> {
   final ExpansibleController controller = ExpansibleController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = context.themeMode;
@@ -89,11 +99,8 @@ class _ExerciseListState extends State<ExerciseList> {
       expansionAnimationStyle: AnimationStyle(
         duration: Duration(milliseconds: 75),
       ),
-      initiallyExpanded: exercises.isEmpty,
-      enabled: exercises.isNotEmpty,
       title: CListItem(
         title: categoryStr,
-        widgets: exercises.isEmpty ? [CListItemItem(text: 'Empty')] : [],
         border: Border.symmetric(
           vertical: BorderSide(
             width: 5,
@@ -103,6 +110,17 @@ class _ExerciseListState extends State<ExerciseList> {
         verticalBorder: 10,
       ),
       children: [
+        FilledButton(
+          onPressed: () {},
+          style: FilledButton.styleFrom(
+            backgroundColor: MyDecor(isDarkMode).primaryColor,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Icon(Icons.add, size: 36)],
+          ),
+        ),
+        SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -151,97 +169,45 @@ class _ExerciseItemState extends State<ExerciseItem> {
     final Exercise exercise = widget.exercise;
     final int index = widget.index1;
     final bool isDarkMode = context.themeMode;
-    return ClipRRect(
-      borderRadius: BorderRadiusGeometry.circular(18),
-      child: GestureDetector(
-        onTap: () {
-          // detail page
-        },
-        onHorizontalDragUpdate: (details) {
-          if (dragOffset + details.delta.dx <= 0 &&
-              dragOffset + details.delta.dx > -100) {
-            setState(() {
-              dragOffset += details.delta.dx;
-            });
+    final List<Widget> widgetsChild = exercise.personalRecord
+        .toMap()
+        .map((key, value) {
+          MapEntry<String, Widget?> result = MapEntry(key, null);
+          if (value != null) {
+            result = MapEntry(key, CListItemItem(text: '$key: $value'));
           }
-        },
-        onHorizontalDragEnd: (details) {
-          // print(dragOffset);
-          if (dragOffset < -50) {
-            // print('trash');
-            setState(() => dragOffset = 0);
-            setState(() => exercisesTest.removeAt(index));
-            exerciseRemoveNotifier.value = !exerciseRemoveNotifier.value;
-          } else {
-            // print('no trash');
-            setState(() => dragOffset = 0); // Reset if not swiped enough
-          }
-        },
-
-        child: Stack(
-          children: [
-            // Red background with trash icon (hidden initially)
-            if (dragOffset < 0)
-              Positioned.fill(
-                child: AnimatedContainer(
-                  duration: Duration(),
-                  decoration: BoxDecoration(
-                    color: Colors.red.withAlpha(
-                      (-dragOffset / 100 * 255).ceil().clamp(0, 255),
-                    ),
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.only(right: 20),
-                  child: Icon(Icons.delete, color: Colors.white),
-                ),
-              ),
-            // The draggable item
-            Transform.translate(
-              offset: Offset(dragOffset, 0),
-              child: CListItem(
-                title: exercise.name,
-                border: Border(
-                  top: widget.index0 == 0
-                      ? BorderSide(width: 5, color: MyDecor(isDarkMode).border)
-                      : BorderSide.none,
-                  bottom: widget.index0 == widget.exercisesLength - 1
-                      ? BorderSide(width: 5, color: MyDecor(isDarkMode).border)
-                      : BorderSide.none,
-                ),
-                widgets: [
-                  if (exercise.lastPerformed != null)
-                    CListItemItem(
-                      text:
-                          'Last Performed: ${exercise.lastPerformed.toString()}',
-                    ),
-                  Wrap(
-                    spacing: 6,
-                    runSpacing: 6,
-                    children: exercise.personalRecord
-                        .toMap()
-                        .map((key, value) {
-                          MapEntry<String, Widget> result = MapEntry(
-                            key,
-                            SizedBox.shrink(),
-                          );
-                          if (value != null) {
-                            result = MapEntry(
-                              key,
-                              CListItemItem(text: '$key: $value'),
-                            );
-                          }
-                          return result;
-                        })
-                        .values
-                        .toList(),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          return result;
+        })
+        .values
+        .where((element) => element != null)
+        .map((e) => e ?? SizedBox.shrink())
+        .toList();
+    final List<Widget> widgets = [
+      if (exercise.lastPerformed != null)
+        CListItemItem(
+          text: 'Last Performed: ${exercise.lastPerformed.toString()}',
         ),
+      if (widgetsChild.isNotEmpty)
+        Wrap(spacing: 6, runSpacing: 6, children: widgetsChild),
+    ];
+    return CListItem(
+      title: exercise.name,
+      titleRight: GestureDetector(
+        onTap: () {
+          exercisesTest.removeAt(index);
+          exerciseRemoveNotifier.value = !exerciseRemoveNotifier.value;
+        },
+        child: Icon(Icons.delete, color: MyDecor(isDarkMode).red, size: 28),
       ),
+      border: Border(
+        top: widget.index0 == 0
+            ? BorderSide(width: 5, color: MyDecor(isDarkMode).border)
+            : BorderSide.none,
+        bottom: widget.index0 == widget.exercisesLength - 1
+            ? BorderSide(width: 5, color: MyDecor(isDarkMode).border)
+            : BorderSide.none,
+      ),
+      widgets: widgets.isNotEmpty ? widgets : null,
     );
   }
 }
