@@ -51,7 +51,7 @@ class HistoryPage extends StatelessWidget {
 }
 
 class _HistoryLiState extends StatefulWidget {
-  const _HistoryLiState({super.key, required this.historyItem});
+  const _HistoryLiState({required this.historyItem});
   final History historyItem;
   @override
   State<_HistoryLiState> createState() => __HistoryLiStateState();

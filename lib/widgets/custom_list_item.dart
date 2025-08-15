@@ -33,7 +33,6 @@ class CListItem extends StatelessWidget {
 
     final double screenWidth =
         MediaQuery.of(context).size.width - verticalBorder;
-    Color primaryColor = MyDecor(isDarkMode).primaryColor;
     return Container(
       width: screenWidth - 48 - 48,
       // constraints: BoxConstraints(minHeight: 96),

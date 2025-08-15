@@ -36,3 +36,9 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+// TODO: 
+// change category to List or something else than enum
+//    so user can add or delete category
+//    exercises that have no category become uncategorized
+// add Id to exercises
+// review that data structure of deepseek suggestion

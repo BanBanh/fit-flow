@@ -2,7 +2,6 @@ import 'package:fit_flow/data/model/date.dart';
 import 'package:fit_flow/data/model/exercise.dart';
 import 'package:fit_flow/data/model/history.dart';
 import 'package:fit_flow/data/model/workout.dart';
-import 'package:flutter/material.dart';
 
 List<Exercise> exercisesTest = [
   Exercise(
